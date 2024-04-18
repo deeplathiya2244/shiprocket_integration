@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="main_menu_lax_shiprocket_root"
+                  name="Shiprocket"
+                  sequence="1"/>
+
+        <menuitem id="main_menu_auth_shiprocket"
+                  name="Authentication"
+                  action="action_shiprocket_api"
+                  parent="main_menu_lax_shiprocket_root"
+                  sequence="1"/>
+
+        <menuitem id="menu_shiprocket_configuration"
+                  name="Configuration"
+                  parent="main_menu_lax_shiprocket_root"
+                  sequence="2"/>
+
+        <menuitem id="menu_shiprocket_channel"
+                  name="Channel"
+                  action="action_channel"
+                  parent="menu_shiprocket_configuration"
+                  sequence="1"/>
+    </data>
+</odoo>
