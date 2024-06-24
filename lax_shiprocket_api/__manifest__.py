@@ -10,12 +10,13 @@
     'depends': ['sale'],
     'data': [
         # data
-        'data/sequence.xml',
+        'data/data.xml',
         # Security
         'security/ir.model.access.csv',
         # Wizards
         # Views
-        'views/shiprocket_api_view.xml',
+        'views/authenticate_view.xml',
+        'views/dashboard.xml',
         'views/order_inherited_view.xml',
         'views/channel_data.xml',
         # Reports

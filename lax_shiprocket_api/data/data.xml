@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="shiprocket_response_code_200_202" model="shiprocket.response.code">
+            <field name="code">200 &amp; 202</field>
+            <field name="name">OK &amp; Accepted</field>
+            <field name="description">Everything worked as expected, and you'll get a response. Some APIs may respond
+                with an error message if data is invalid.
+            </field>
+        </record>
+
+        <record id="shiprocket_response_code_400" model="shiprocket.response.code">
+            <field name="code">400</field>
+            <field name="name">Bad Request</field>
+            <field name="description">The request was invalid or cannot be otherwise served.</field>
+        </record>
+
+        <record id="shiprocket_response_code_401" model="shiprocket.response.code">
+            <field name="code">401</field>
+            <field name="name">Unauthorized</field>
+            <field name="description">There is some error during validation. You need to check your token or
+                credentials.
+            </field>
+        </record>
+
+        <record id="shiprocket_response_code_404" model="shiprocket.response.code">
+            <field name="code">404</field>
+            <field name="name">Not Found</field>
+            <field name="description">The URI requested is invalid or the resource requested does not exist.
+            </field>
+        </record>
+
+        <record id="shiprocket_response_code_405" model="shiprocket.response.code">
+            <field name="code">405</field>
+            <field name="name">Method Not Allowed</field>
+            <field name="description">The API was accessed using the wrong method. Check your HTTP method.
+            </field>
+        </record>
+
+        <record id="shiprocket_response_code_422" model="shiprocket.response.code">
+            <field name="code">422</field>
+            <field name="name">Unprocessable Entity</field>
+            <field name="description">It means the request contains incorrect syntax or cannot be fulfilled. Try
+                checking your code for errors.
+            </field>
+        </record>
+
+        <record id="shiprocket_response_code_429" model="shiprocket.response.code">
+            <field name="code">429</field>
+            <field name="name">Too Many Requests</field>
+            <field name="description">You have exceeded the API call rate limit.
+            </field>
+        </record>
+
+        <record id="shiprocket_response_code_500_502_503_504" model="shiprocket.response.code">
+            <field name="code">500, 502, 503, 504</field>
+            <field name="name">Server Errors</field>
+            <field name="description">Some server error has occurred. Some APIs may show this due to syntax or parameter
+                errors. Try contacting support if this persists.
+            </field>
+        </record>
+
+    </data>
+</odoo>

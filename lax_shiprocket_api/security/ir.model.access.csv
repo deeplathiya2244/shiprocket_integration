@@ -1,3 +1,5 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 access_lax_shiprocket_api,access.lax.shiprocket.api,model_lax_shiprocket_api,base.group_user,1,1,1,1
 access_lax_shiprocket_channel,access.lax.shiprocket.channel,model_lax_shiprocket_channel,base.group_user,1,1,1,1
+access_lax_shipment_details,access.lax.shipment.details,model_lax_shipment_details,base.group_user,1,1,1,1
+access_shiprocket_response_code,access.shiprocket.response.code,model_shiprocket_response_code,base.group_user,1,1,1,1

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_car_kanban" model="ir.ui.view">
+            <field name="name">lax.shiprocket.api.kanban</field>
+            <field name="model">lax.shiprocket.api</field>
+                <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title" style="font-weight: bold;">
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="o_dropdown_kanban dropdown">
+                                        <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown"
+                                           href="#"
+                                           aria-label="Dropdown menu" title="Dropdown menu">
+                                            <span class="fa fa-ellipsis-v"/>
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <t t-if="widget.editable">
+                                                <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt4 mb4"/>
+                                <div style="height:20px;">
+                                </div>
+                                <div class="container o_kanban_card_content"
+                                     style="display: flex; margin-right:10px">
+                                    <button name="get_orders" type="object" class="btn btn-primary"
+                                            string="Orders">
+                                    </button>
+                                    <span style="margin-right:10px" >
+                                    </span>
+                                    <button name="det_all_ndr_shipments" type="object" class="btn btn-primary"
+                                            string="NDR">
+                                    </button>
+                                    <span style="margin-right:10px" >
+                                    </span>
+                                    <button name="track_orders_with_shipment_id" type="object" class="btn btn-primary"
+                                            string="Tracking">
+                                    </button>
+                                    <span style="margin-right:10px" >
+                                    </span>
+                                    <button name="get_all_shipments" type="object">
+                                        <i class="fa fa-truck" style="font-size:25px;">
+                                        </i>
+                                    </button>
+                                    <button name="configuration" type="object">
+                                        <i class="fa fa-gear" style="font-size:25px;">
+                                        </i>
+                                    </button>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="shiprocket_authentication_tree_view" model="ir.ui.view">
+            <field name="name">lax.shiprocket.api.tree.view</field>
+            <field name="model">lax.shiprocket.api</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="base_url"/>
+                    <field name="gmail"/>
+                    <field name="password" password="True"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_lax_shiprocket_api_form" model="ir.ui.view">
+            <field name="name">lax.shiprocket.api.form</field>
+            <field name="model">lax.shiprocket.api</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="status" widget="statusbar" options="{'clickable':'1'}"/>
+                        <button id="button_confirm" name="generate_token" string="Submit"
+                                class="btn-primary" type="object"/>
+                        <button id="button_get_channel" name="get_channel_details" string="Get Channel Details"
+                                class="btn-primary" type="object"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <span style="font-weight: bold;">Instance</span>
+                            <h2>
+                                <field name="name" placeholder="e.g Instance Name"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="base_url" required="0"/>
+                                <field name="gmail" required="1"/>
+                                <field name="password" password="True" required="1"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Create Or Update Order">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_create_custom_order" name="create_custom_order"
+                                                string="Create custom order"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_create_channel_specific_order"
+                                                name="create_channel_specific_order"
+                                                string="Create channel specific order"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_update_pickup_location" name="update_pickup_location"
+                                                string="Update Pickup Location of Created Orders"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_update_customer_delivery_address"
+                                                name="update_customer_delivery_address"
+                                                string="Update Customer Delivery Address"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_update_order" name="update_order"
+                                                string="Update order"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_cancel_an_order" name="cancel_an_order"
+                                                string="Cancel an Order"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_add_inventory_for_ordered_product"
+                                                name="add_inventory_for_ordered_product"
+                                                string="Add Inventory for Ordered Product"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_map_unmapped_products" name="map_unmapped_products"
+                                                string="Map Unmapped Products"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_import_orders_in_bulk" name="import_orders_in_bulk"
+                                                string="Import Orders in Bulk"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Couriers">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_generate_awb_for_shipment" name="generate_awb_for_shipment"
+                                                string="Generate AWB for Shipment"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_list_of_all_courier" name="list_of_all_courier"
+                                                string="List of Couriers"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_check_courier_serviceability"
+                                                name="check_courier_serviceability"
+                                                string="Check Courier Serviceability"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_request_for_shipment_pickup"
+                                                name="request_for_shipment_pickup"
+                                                string="Request for Shipment Pickup"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Orders">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_orders" name="get_orders"
+                                                string="Get Orders"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_specific_orders" name="get_specific_order"
+                                                string="Get Specific Orders"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_orders" name="export_orders"
+                                                string="Export Order"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Return Orders">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_create_return_order" name="create_return_order"
+                                                string="Create a Return Order"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_all_return_orders" name="get_all_return_orders"
+                                                string="Get All Return Orders"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_generate_awb_for_return_shipment"
+                                                name="generate_awb_for_return_shipment"
+                                                string="Generate AWB for Return Shipment"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Shipments">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_all_shipments" name="get_all_shipments"
+                                                string="Get All Shipments"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_specific_shipment" name="get_specific_shipment"
+                                                string="Get specific shipment"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_cancel_a_shipment" name="cancel_a_shipment"
+                                                string="Cancel a Shipment"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Labels | Manifests | Invoice">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_generate_manifest" name="generate_manifest"
+                                                string="Generate Manifest"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_print_manifest" name="print_manifest"
+                                                string="Print Manifest"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_generate_label"
+                                                name="generate_label"
+                                                string="Generate Label"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_generate_invoice"
+                                                name="generate_invoice"
+                                                string="Generate Invoice"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Wrapper API">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_wrapper_forward"
+                                                name="wrapper_forward"
+                                                string="Forward"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_wrapper_return"
+                                                name="wrapper_return"
+                                                string="Return"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="NDR">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_det_all_ndr_shipments" name="det_all_ndr_shipments"
+                                                string="Get All NDR Shipments"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_specific_ndr_shipment_details"
+                                                name="get_specific_ndr_shipment_details"
+                                                string="Get Specific NDR Shipment Details"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_action_ndr" name="action_ndr"
+                                                string="Action NDR"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Tracking">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_tracking_with_awb"
+                                                name="tracking_with_awb"
+                                                string="Get Tracking through AWB"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_tracking_data_for_multiple_awbs"
+                                                name="tracking_data_for_multiple_awbs"
+                                                string="Get Tracking Data for Multiple AWBS"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_track_orders_with_shipment_id"
+                                                name="track_orders_with_shipment_id"
+                                                string="Get Tracking through Shipment ID"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_track_orders_with_order_id"
+                                                name="track_orders_with_order_id"
+                                                string="Get Tracking Data through Order iD"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Pickup Addresses">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_all_pickup_location" name="get_all_pickup_location"
+                                                string="Get All Pickup Location"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_add_a_new_pickup_location" name="add_a_new_pickup_location"
+                                                string="Add a New Pickup Location"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="International">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_international_tracking"
+                                                name="international_tracking"
+                                                string="Tracking"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_international_kyc"
+                                                name="international_kyc"
+                                                string="International KYC"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_add_bank_details"
+                                                name="add_bank_details"
+                                                string="Add Bank Details"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_create_order"
+                                                name="create_order"
+                                                string="Create order"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_update_international_order"
+                                                name="update_international_order"
+                                                string="Update order"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_international_wrapper_api"
+                                                name="international_wrapper_api"
+                                                string="International Wrapper API"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_serviceability"
+                                                name="serviceability"
+                                                string="Serviceability"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_awb_assignment"
+                                                name="awb_assignment"
+                                                string="AWB Assignment"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_manifest_generation"
+                                                name="manifest_generation"
+                                                string="Manifest Generation"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_generate_pickup"
+                                                name="generate_pickup"
+                                                string="Generate Pickup"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Account">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_wallet_balance"
+                                                name="get_wallet_balance"
+                                                string="Get Wallet Balance"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Products">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_all_product" name="get_all_product"
+                                                string="Get All Products"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_specific_product_details"
+                                                name="get_specific_product_details"
+                                                string="Get Specific Product Details"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_add_new_product"
+                                                name="add_new_product"
+                                                string="Add New Products"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_bulk_import_products"
+                                                name="bulk_import_products"
+                                                string="Bulk Import Products"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_sample_csv_format"
+                                                name="get_sample_csv_format"
+                                                string="Get Sample .csv Format"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Listings">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_all_listings" name="get_all_listings"
+                                                string="Get All Listings"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_map_channel_product" name="map_channel_product"
+                                                string="Map Channel Product"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_import_catalog_mappings"
+                                                name="import_catalog_mappings"
+                                                string="Import Catalog Mappings"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_export_mapped_products"
+                                                name="export_mapped_products"
+                                                string="Export Mapped Products"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_export_unmapped_products"
+                                                name="export_unmapped_products"
+                                                string="Export Unmapped Products"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_export_catalog_sample"
+                                                name="export_catalog_sample"
+                                                string="Export Catalog Sample"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Inventory">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_inventory_details" name="get_inventory_details"
+                                                string="Get Inventory Details"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_update_inventory" name="update_inventory"
+                                                string="Update Your Inventory"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Countries">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_country_codes" name="get_country_codes"
+                                                string="Get Country Codes"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_all_zones" name="get_all_zones"
+                                                string="Get All Zones"
+                                                class="btn-primary" type="object"/>
+                                        <button id="button_get_locality_details" name="get_locality_details"
+                                                string="Get Locality Details"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Statement Details">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_statement_details" name="get_statement_details"
+                                                string="Get Statement Details"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="Discrepancy Details">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_discrepancy_data" name="get_discrepancy_data"
+                                                string="Get Dicrepancy Data"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                            <page string="File Imports">
+                                <field name="order_ids"/>
+                                <tree>
+                                    <header>
+                                        <button id="button_get_file_import_results" name="get_file_import_results"
+                                                string="Get File import Results"
+                                                class="btn-primary" type="object"/>
+                                    </header>
+                                </tree>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_shiprocket_api" model="ir.actions.act_window">
+            <field name="name">Shiprocket APIs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lax.shiprocket.api</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+    </data>
+</odoo>

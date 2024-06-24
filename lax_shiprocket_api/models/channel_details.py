@@ -5,8 +5,8 @@ class ShiprocketChannel(models.Model):
     _name = 'lax.shiprocket.channel'
     _description = "Shiprocket channel details"
 
-    gmail = fields.Many2one('lax.shiprocket.api', string="Gmail")
-    shiprocket_channel_id = fields.Char(string="Channel ID")
+    # shiprocket_id = fields.Many2one('lax.shiprocket.api', string="shiprocket id")
+    shiprocket_channel_id = fields.Char(string="Shiprocket Channel ID")
+    gmail = fields.Char(string="Gmail")
     name = fields.Char(string="Channel Name")
     status = fields.Char(string="Channel Status")
-
